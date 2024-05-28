@@ -33,3 +33,4 @@ console.log(areEqual3(new Decimal(0.1).plus(0.2), new Decimal(0.3))) // true
 
 // Ques: 为何js的浮点数计算会有误差？
 // 因为js的浮点数计算是使用二进制来表示的，而二进制的精度是有限的，所以计算结果会有误差。
+// https://juejin.cn/post/7021711278640988168
