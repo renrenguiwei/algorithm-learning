@@ -19,3 +19,8 @@ var twoSum = function(nums, target) {
 };
 
 console.log(twoSum([2,7,11,15], 9)) // 解释
+
+/**
+ * 思路：
+ * 1. 利用+、利用减，但循环的次数是一样的
+ */
