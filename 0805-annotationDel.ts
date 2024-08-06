@@ -11,31 +11,29 @@ function removeComments(source: string[]): string[] {
         const _matchSlashIndex = sourceStr.indexOf('//')
         const _matchStarIndex = sourceStr.indexOf('/*')
         // 匹配/*
-        if (_matchSlashIndex > _matchStarIndex) {
+        if (
+            (_matchSlashIndex > -1 && _matchStarIndex > -1 && _matchSlashIndex > _matchStarIndex) ||
+            (_matchSlashIndex === -1 && _matchStarIndex > -1)
+        ) {
             const start = sourceStr.substring(0, _matchStarIndex)
 
-            const endIndex = sourceStr.indexOf('*/', _matchStarIndex)
+            const endIndex = sourceStr.indexOf('*/', _matchStarIndex+2) // +2 排除/*/的可能
             const end = sourceStr.substring(endIndex + 2)
 
-            if (sourceStr.substring(_matchStarIndex, endIndex).indexOf(symbol)) {
-                sourceStr = start + symbol + end
-            } else {
-                sourceStr = start + end
-            }
-        // 匹配//
-        } else {
+            sourceStr = start + end
+            // 匹配//
+        } else if (_matchSlashIndex > -1) {
             const start = sourceStr.substring(0, _matchSlashIndex)
 
-            const endIndex = sourceStr.indexOf(symbol, _matchSlashIndex) // 可能是最后
+            const endIndex = sourceStr.indexOf(symbol, _matchSlashIndex+2) // 可能是最后、+2 排除///的可能
             const end = endIndex > -1 ? sourceStr.substring(endIndex) : ''
             sourceStr = start + end
         }
     }
-
-    return sourceStr.split(symbol)
+    return sourceStr.split(symbol).filter(item => !!item)
 }
 
-const source = ["/*Test program */", "int main()", "{ ", "  // variable declaration ", "int a, b, c;", "/* This is a test", "   multiline  ", "   comment for ", "   testing */", "a = b + c;", "}"]
+const source = ["struct Node{", "    /*/ declare members;/**/", "    int size;", "    /**/int val;", "};"]
 console.log(removeComments(source))
 
 
