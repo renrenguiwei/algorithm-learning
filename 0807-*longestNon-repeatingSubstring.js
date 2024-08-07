@@ -4,6 +4,7 @@ function lengthOfLongestSubstring(str) {
     let left = 0
     let right = 0
     let maxLength = 0
+    let maxStr = ''
 
     const charSet = new Set()
     while(right < str.length) {
@@ -11,10 +12,11 @@ function lengthOfLongestSubstring(str) {
             charSet.add(str[right])
             right++
             maxLength = Math.max(maxLength, right - left)
+            maxStr = str.slice(left, right)
         } else {
             charSet.delete(str[left])
             left++
         }
     }
-    return maxLength
+    return { maxLength, maxStr }
 }
