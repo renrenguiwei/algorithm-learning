@@ -1,5 +1,5 @@
 // 利用又指针，寻找闭合括号
-var isValid = function (s) {
+/*var isValid = function (s) {
     const sMap = {
         '(': ')',
         '[': ']',
@@ -18,6 +18,18 @@ var isValid = function (s) {
         }
     }
     return s.length === 0
-}
-isValid(']')
+}*/
+// isValid(']')
 
+// 利用replace替换
+var isValid = function (s) {
+    while (s.indexOf('()') > -1 || s.indexOf('[]') > -1 || s.indexOf('{}') > -1) {
+        s = s.replace(/\[]/g, '')
+        s = s.replace(/\{}/g, '')
+        s = s.replace(/\(\)/g, '')
+        console.log(s)
+    }
+    return s.length === 0
+}
+
+isValid('()[]{}')
